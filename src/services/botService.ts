@@ -312,19 +312,21 @@ export async function handleStateTransition(
                 // שליחת הודעה לקבוצת "לידים חמים 🔥"
                 const groupID = '120363406522778698@g.us';
                 const summary = `
-שם: ${fullLead.full_name}
-מספר טלפון: ${fullLead.phone_number}
-עיר: ${fullLead.city}
-סכום: ${fullLead.loan_amount}
-מטרה: ${fullLead.loan_purpose}
-נכס: ${fullLead.has_property ? 'יש' : 'אין'}
-בעיות אשראי: ${fullLead.bank_issues ? 'כן' : 'לא'}
-מועד רצוי לחזרה: ${fullLead.preferred_call_time || 'לא צוין'}
+*שם*: ${fullLead.full_name}
+*טלפון*: ${fullLead.phone_number}
+*עיר*: ${fullLead.city}
+*סכום*: ${fullLead.loan_amount}
+*מטרה*: ${fullLead.loan_purpose}
+*נכס*: ${fullLead.has_property ? 'יש' : 'אין'}
+*בעיות אשראי*: ${fullLead.bank_issues ? 'כן' : 'לא'}
+*מועד רצוי לחזרה*: ${fullLead.preferred_call_time || 'לא צוין'}
+
 בברכה,
 הבוט של אדמתנו ביתנו
 `.trim();
 
-                const groupMessage = `*התקבל ליד חדש*  
+                const groupMessage = `*🔥 התקבל ליד חדש 🔥*  
+
 פרטי הלקוח:
 ${summary}`;
 
