@@ -2,26 +2,111 @@ import { sendMessage } from './ultramsgService';
 import { supabase, updateLead, createCallAppointment } from './supabaseService';
 import { Lead } from '../types';
 
+/**
+ * מזהה שפה על בסיס תווים
+ */
 export function detectLanguage(text: string): 'hebrew' | 'arabic' | 'english' {
     if (/[\u0590-\u05FF]/.test(text)) return 'hebrew';
     if (/[\u0600-\u06FF]/.test(text)) return 'arabic';
     return 'english';
 }
 
+/**
+ * פונקציית עזר לתרגום מילים בעברית למספרים (NLP בסיסי)
+ */
+function parseHebrewWords(input: string): number {
+    let total = 0;
+    const clean = input.replace(/ ו/g, ' ').replace(/[\-\,]/g, ' ').trim();
+    const words = clean.split(/\s+/);
+
+    const map: { [key: string]: number } = {
+        'מאה': 100, 'מאתיים': 200, 'שלוש': 3, 'ארבע': 4, 'חמש': 5, 'שש': 6, 'שבע': 7, 'שמונה': 8, 'תשע': 9,
+        'עשרים': 20, 'שלושים': 30, 'ארבעים': 40, 'חמישים': 50, 'שישים': 60, 'שבעים': 70, 'שמונים': 80, 'תשעים': 90,
+        'אחד': 1, 'שניים': 2, 'עשר': 10, 'אחת': 1, 'שתיים': 2
+    };
+
+    if (clean.includes('שלוש מאות')) total += 300;
+    else if (clean.includes('ארבע מאות')) total += 400;
+    else if (clean.includes('חמש מאות')) total += 500;
+    else if (clean.includes('שש מאות')) total += 600;
+    else if (clean.includes('שבע מאות')) total += 700;
+    else if (clean.includes('שמונה מאות')) total += 800;
+    else if (clean.includes('תשע מאות')) total += 900;
+    else if (clean.includes('מאתיים')) total += 200;
+    else if (clean.includes('מאה')) total += 100;
+
+    for (const word of words) {
+        if (map[word] && map[word] < 100) total += map[word];
+    }
+    return total;
+}
+
+/**
+ * מנוע פיענוח סכומים - מטפל במיליונים, אלפים, שברים ומילים
+ */
+function parseAmount(input: string): number {
+    if (!input) return 0;
+    let clean = input.toLowerCase().replace(/,/g, '').replace(/שח|ש"ח|שקלים|₪|nis/g, '').trim();
+
+    // 1. טיפול במיליונים
+    if (clean.includes('מיליון') || clean.includes(' m') || clean.includes('מלيون')) {
+        const parts = clean.split(/מיליון| m|מלيون/);
+        let millionsBase = 1;
+        const firstPart = parts[0].trim();
+        if (firstPart) {
+            const num = parseFloat(firstPart.match(/(\d+(\.\d+)?)/)?.[0] || "0");
+            if (num > 0) millionsBase = num;
+            else {
+                const wordNum = parseHebrewWords(firstPart);
+                if (wordNum > 0) millionsBase = wordNum;
+            }
+        }
+        let total = millionsBase * 1000000;
+        const secondPart = parts[1]?.trim();
+        if (secondPart) {
+            if (secondPart.includes('חצי') || secondPart.includes('וחצי')) total += 500000;
+            else if (secondPart.includes('רבע')) total += 250000;
+            else {
+                const rest = parseAmount(secondPart);
+                total += (rest < 1000 && rest > 0) ? rest * 1000 : rest;
+            }
+        }
+        return total;
+    }
+
+    // 2. טיפול באלפים
+    let multiplier = 1;
+    if (clean.includes('אלף') || clean.includes('k') || clean.includes('ألف')) multiplier = 1000;
+
+    const numberMatch = clean.match(/(\d+(\.\d+)?)/);
+    let base = 0;
+    if (numberMatch) {
+        base = parseFloat(numberMatch[0]);
+        if (clean.includes('וחצי') || (clean.includes('חצי') && base < 1000)) base += 0.5;
+    } else {
+        base = parseHebrewWords(clean);
+        if (base === 0) {
+            if (clean.includes('חצי')) base = 0.5;
+            else if (clean.includes('רבע')) base = 0.25;
+        }
+    }
+    return base * multiplier;
+}
+
 const templates = {
     hebrew: {
-        greeting: 'שלום רב, תודה שפנית ל"אדמתנו ביתנו" – מומחים לפתרונות מימון ומשכנתאות. 🏠 אנחנו כאן כדי לעזור לך למצוא את המסלול המשתלם ביותר עבורך.',
-        step_1: 'כדי שנוכל להעניק לך שירות אישי ומקצועי, איך קוראים לך?',
+        greeting: 'שלום רב, תודה שפנית ל"אדמתנו ביתנו" – מומחים לפתרונות מימון ומשכנתאות. 🏠',
+        step_1: 'כדי שנוכל להעניק לך שירות אישי ומקצועי, נשמח לדעת איך קוראים לך?',
         step_2: 'נעים מאוד! מאיזה יישוב אתה בארץ?',
-        step_3: 'מהו סכום המימון שאתה זקוק לו? (זה יעזור לנו להתאים עבורך את מסלולי ההלוואה הרלוונטיים ביותר)',
-        step_3_under_min: 'חשוב לציין שאנו מטפלים בבקשות החל מ-200,000 ש"ח. האם סכום זה או גבוה ממנו עשוי להיות רלוונטי עבורך?',
-        step_3_below_min_final: 'מכיוון שאנו מתמחים בהלוואות בסכומים גבוהים יותר, כרגע אין לנו מסלול שמתאים לפנייתך. נשמח לעמוד לרשותך בעתיד במידה והצרכים ישתנו. בהצלחה!',
-        step_4: 'למען איזו מטרה מיועדת ההלוואה? (למשל: שיפוץ הבית, סגירת חובות, רכישת נכס או כל מטרה אחרת)',
-        step_5: 'כדי לבחון את אפשרויות המימון, האם יש בבעלותך נכס כלשהו (דירה, בית או מגרש)? (כן / לא)',
+        step_3: 'מהו סכום המימון הנדרש? (זה יעזור לנו להתאים עבורך את המסלולים הרלוונטיים ביותר)',
+        step_3_under_min: 'חשוב לציין שאנו מטפלים בבקשות החל מ-200,000 ש"ח. האם זה עדיין רלוונטי עבורך?',
+        step_3_below_min_final: 'סליחה, כרגע אין לנו מסלול שמתאים לפנייתך. נשמח לעמוד לרשותך בעתיד במידה והצרכים ישתנו. בהצלחה!',
+        step_4: 'למען איזו מטרה מיועדת ההלוואה? (למשל: רכישת נכס, שיפוץ, סגירת חובות, או כל מטרה אחרת)',
+        step_5: 'כדי לבחון את אפשרויות המימון, האם יש בבעלותך נכס כלשהו? (כן / לא)',
         step_5_no_family: 'לפעמים ניתן לקבל אישור על בסיס נכס של המשפחה הקרובה. האם קיים נכס כזה בבעלות הורים או משפחה מדרגה ראשונה? (כן / לא)',
-        step_5_no_family_final: 'תודה על הכנות. התהליכים שלנו מבוססים על קיומו של נכס בבעלותך או בבעלות משפחתך. נשמח לעזור בעתיד אם התנאים ישתנו. יום נעים!',
-        step_6: 'על שם מי רשום הנכס כיום? (על שמך / על שם בן או בת זוג / על שם שניכם)',
-        step_7: 'היכן רשום הנכס? (טאבו / מינהל מקרקעי ישראל / לא רשום / לא בטוח)',
+        step_5_no_family_final: 'תודה על הכנות. התהליכים שלנו מבוססים על קיומו של נכס בבעלותך או בבעלות משפחתך. נשמח לעזור בעתיד אם התנאים ישתנו. בהצלחה ויום נעים!',
+        step_6: 'על שם מי רשום הנכס כיום? (על שמך / על בן או בת זוג / על שניכם)',
+        step_7: 'היכן רשום הנכס? (טאבו / מינהל / לא רשום / לא בטוח)',
         step_8: 'האם קיים לנכס היתר בנייה מוסדר? (כן / לא / לא בטוח)',
         step_9: 'כדי שנוכל להכין את התיק בצורה הטובה ביותר מול הבנקים, האם היו אתגרים בחשבון ב-3 השנים האחרונות? (כגון חזרות צ\'קים, הגבלות או עיקולים)? (כן / לא)',
         step_10: 'הפרטים שלך הועברו למומחים שלנו לבחינה ראשונית. מתי השעה הנוחה לך ביותר שבו נציג יחזור אליך לשיחת ייעוץ קצרה?',
@@ -41,7 +126,7 @@ const templates = {
         step_6: 'باسم من مسجل العقار حالياً؟ (باسمك / باسم الزوج أو الزوجة / باسمكما معاً)',
         step_7: 'أين مسجل العقار؟ (طابو / دائرة أراضي إسرائيل / غير مسجل / لست متأكداً)',
         step_8: 'هل العقار حاصل على رخصة بناء قانونية؟ (نعم / لا / لست متأكداً)',
-        step_9: 'لكي نتمكن من تحضير الملف بأفضل شكل أمام البنوك، هل واجهت أي تحديات في الحساب خلال السنوات الثلاث الأخيرة؟ (مثل شيكات راجعة أو حجوزات)؟ (نعم / لا)',
+        step_9: 'لكي نتمكن من تحضير الملف بأفضل شكل أمام البנוك، هل واجهت أي تحديات في الحساب خلال السنوات الثلاث الأخيرة؟ (مثل شيكات راجعة أو حجوزات)؟ (نعم / לא)',
         step_10: 'تم تحويل بياناتك إلى خبرائنا للفحص الأولي. ما هو الوقت الأنسب لك ليتصل بك مندوبنا للاستشارة؟',
         completion: 'تم استلام طلبك بنجاح. نتمنى لك يوماً رائعاً وشكراً لاختيارك "أرضنا بيتنا"! 🌷',
     },
@@ -92,7 +177,8 @@ export async function handleStateTransition(
             break;
 
         case 3: {
-            const loanAmount = parseInt(userInput.replace(/[^\d]/g, ''));
+            // שימוש במנוע הפיענוח החכם
+            const loanAmount = parseAmount(userInput);
 
             if (isNaN(loanAmount) || loanAmount < minLoanAmount) {
                 await updateLead(leadId, {
@@ -103,14 +189,24 @@ export async function handleStateTransition(
                 await sendMessage(phoneNumber, msgs.step_3_under_min);
             } else {
                 await updateLead(leadId, { loan_amount: loanAmount, current_step: 4 });
-                await sendMessage(phoneNumber, msgs.step_4);
+
+                // הודעת אישור שמראה שהבנו את הסכום (מגביר אמון לקוח)
+                let confirmationText = msgs.step_4;
+                if (language === 'hebrew') confirmationText = `קיבלתי, ${loanAmount.toLocaleString()} ש"ח. ${msgs.step_4}`;
+                if (language === 'arabic') confirmationText = `تم استلام ${loanAmount.toLocaleString()} شيكل. ${msgs.step_4}`;
+
+                await sendMessage(phoneNumber, confirmationText);
             }
             break;
         }
 
         case 35: {
             const response = userInput.toLowerCase();
-            if (response.includes('כן') || response.includes('نعم') || response.includes('yes')) {
+            const isPositive = response.includes('כן') || response.includes('نعم') ||
+                response.includes('yes') || response.includes('רלוונטי') ||
+                response.includes('בטח');
+
+            if (isPositive) {
                 await updateLead(leadId, { current_step: 4 });
                 await sendMessage(phoneNumber, msgs.step_4);
             } else {
@@ -131,8 +227,7 @@ export async function handleStateTransition(
 
         case 5: {
             const response = userInput.toLowerCase();
-            const hasProperty =
-                response.includes('כן') || response.includes('نعم') || response.includes('yes');
+            const hasProperty = response.includes('כן') || response.includes('نعم') || response.includes('yes');
 
             if (hasProperty) {
                 await updateLead(leadId, { has_property: true, current_step: 6 });
@@ -146,11 +241,10 @@ export async function handleStateTransition(
 
         case 55: {
             const response = userInput.toLowerCase();
-            const hasFamily =
-                response.includes('כן') || response.includes('نعم') || response.includes('yes');
+            const hasFamily = response.includes('כן') || response.includes('نعم') || response.includes('yes');
 
             if (hasFamily) {
-                await updateLead(leadId, { has_family_property: true, current_step: 8 }); // Skip ownership for family property? User logic said step 8
+                await updateLead(leadId, { has_family_property: true, current_step: 8 });
                 await sendMessage(phoneNumber, msgs.step_8);
             } else {
                 await updateLead(leadId, {
@@ -164,26 +258,29 @@ export async function handleStateTransition(
             break;
         }
 
-        case 6:
-            const owner = userInput.toLowerCase().includes('שניכם') ||
-                userInput.toLowerCase().includes('كليكما') ? 'both' :
-                userInput.toLowerCase().includes('בן') || userInput.toLowerCase().includes('ابن') ? 'spouse' : 'self';
+        case 6: {
+            const input = userInput.toLowerCase();
+            const owner = input.includes('שניכם') || input.includes('كليكما') || input.includes('both') ? 'both' :
+                input.includes('בן') || input.includes('בת') || input.includes('زوج') ? 'spouse' : 'self';
             await updateLead(leadId, { property_owner: owner, current_step: 7 });
             await sendMessage(phoneNumber, msgs.step_7);
             break;
+        }
 
         case 7: {
-            const registry = userInput.toLowerCase().includes('טאבו') || userInput.toLowerCase().includes('تابو') ? 'tabo' :
-                userInput.toLowerCase().includes('מינהל') || userInput.toLowerCase().includes('حكومة') ? 'minhal' :
-                    userInput.toLowerCase().includes('רשום') || userInput.toLowerCase().includes('مسجل') ? 'lo_rassum' : 'lo_batu';
+            const input = userInput.toLowerCase();
+            const registry = input.includes('טאבו') || input.includes('تابو') ? 'tabo' :
+                input.includes('מינהל') || input.includes('حكومة') ? 'minhal' :
+                    input.includes('לא רשום') || input.includes('מסג') ? 'lo_rassum' : 'lo_batu';
             await updateLead(leadId, { property_registry: registry, current_step: 8 });
             await sendMessage(phoneNumber, msgs.step_8);
             break;
         }
 
         case 8: {
-            const permit = userInput.toLowerCase().includes('כן') || userInput.toLowerCase().includes('نعم') || userInput.toLowerCase().includes('yes') ? 'yes' :
-                userInput.toLowerCase().includes('לא') || userInput.toLowerCase().includes('لا') || userInput.toLowerCase().includes('no') ? 'no' : 'lo_batu';
+            const response = userInput.toLowerCase();
+            const permit = response.includes('כן') || response.includes('نعم') || response.includes('yes') ? 'yes' :
+                response.includes('לא') || response.includes('لا') || response.includes('no') ? 'no' : 'lo_batu';
             await updateLead(leadId, { building_permit: permit, current_step: 9 });
             await sendMessage(phoneNumber, msgs.step_9);
             break;
@@ -191,8 +288,7 @@ export async function handleStateTransition(
 
         case 9: {
             const response = userInput.toLowerCase();
-            const hasBankIssues =
-                response.includes('כן') || response.includes('نعم') || response.includes('yes');
+            const hasBankIssues = response.includes('כן') || response.includes('نعم') || response.includes('yes');
             await updateLead(leadId, { bank_issues: hasBankIssues, current_step: 10 });
             await sendMessage(phoneNumber, msgs.step_10);
             break;
