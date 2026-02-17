@@ -308,6 +308,23 @@ export async function handleStateTransition(
             const fullLead = await getLeadByPhone(phoneNumber);
             if (fullLead) {
                 await sendNewLeadEmail(fullLead);
+
+                // שליחת הודעה לקבוצת "לידים חמים 🔥"
+                const groupID = '120363406522778698@g.us';
+                const summary = `
+שם: ${fullLead.full_name}
+עיר: ${fullLead.city}
+סכום: ${fullLead.loan_amount}
+מטרה: ${fullLead.loan_purpose}
+נכס: ${fullLead.has_property ? 'יש' : 'אין'}
+בעיות אשראי: ${fullLead.bank_issues ? 'כן' : 'לא'}
+`.trim();
+
+                const groupMessage = `התקבל ליד חדש בשם ${fullLead.full_name} וסיכום קצר על השיחה שלו אפשר לקבל את
+פרטי הלקוח:
+${summary}`;
+
+                await sendMessage(groupID, groupMessage);
             }
             break;
         }
