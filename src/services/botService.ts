@@ -101,15 +101,13 @@ const templates = {
         step_3: 'יפה! היישוב שלך מוכר לנו היטב. כדי שנתקדם, מה סכום הכסף המבוקש?',
         step_3_under_min: 'חשוב לציין שאנו מטפלים בבקשות החל מ-200,000 ש"ח. האם זה עדיין רלוונטי עבורך?',
         step_3_below_min_final: 'סליחה, כרגע אין לנו מסלול שמתאים לפנייתך. נשמח לעמוד לרשותך בעתיד במידה והצרכים ישתנו. בהצלחה!',
-        step_4: 'למען איזו מטרה מיועדת ההלוואה? (למשל: רכישת נכס, שיפוץ, סגירת חובות, או כל מטרה אחרת)',
-        step_5: 'כדי לבחון את אפשרויות המימון, האם יש בבעלותך נכס כלשהו? (כן / לא)',
+        step_4: 'למה מיועד הכסף? (למשל: רכישת נכס, שיפוץ, סגירת חובות, או כל מטרה אחרת)', step_5: 'כדי לבחון את אפשרויות המימון, האם יש בבעלותך נכס כלשהו? (כן / לא)',
         step_5_no_family: 'לפעמים ניתן לקבל אישור על בסיס נכס של המשפחה הקרובה. האם קיים נכס כזה בבעלות הורים או משפחה מדרגה ראשונה? (כן / לא)',
         step_5_no_family_final: 'תודה על הכנות. התהליכים שלנו מבוססים על קיומו של נכס בבעלותך או בבעלות משפחתך. נשמח לעזור בעתיד אם התנאים ישתנו. בהצלחה ויום נעים!',
-        step_6: 'על שם מי רשום הנכס כיום? (על שמך / על בן או בת זוג / על שניכם)',
-        step_7: 'היכן רשום הנכס? (טאבו / מינהל / לא רשום / לא בטוח)',
-        step_8: 'האם קיים לנכס היתר בנייה מוסדר? (כן / לא / לא בטוח)',
+        step_6: 'על שם מי רשום הנכס? (על שמך / על בן או בת זוג / על שניכם)',
+        step_8: 'האם קיים היתר/רישיון בנייה מסודר? (כן / לא / לא בטוח)',
         step_9: 'כדי שנוכל להכין את התיק בצורה הטובה ביותר מול הבנקים, האם היו אתגרים בחשבון ב-3 השנים האחרונות? (כגון חזרות צ\'קים, הגבלות או עיקולים)? (כן / לא)',
-        step_10: 'הפרטים שלך הועברו למומחים שלנו לבחינה ראשונית. מתי השעה הנוחה לך ביותר שנציג יחזור אליך לשיחת ייעוץ ללא עלות?',
+        step_10: 'הפרטים שלך הועברו למומחים שלנו לבחינה ראשונית. מתי נוח לך שנציג יחזור אליך לשיחת ייעוץ ללא עלות?',
         completion: 'הבקשה נקלטה בהצלחה. מאחלים לך יום מצוין ותודה שבחרת ב"אדמתנו ביתנו"! 🌷',
     },
     arabic: {
@@ -124,7 +122,6 @@ const templates = {
         step_5_no_family: 'في بعض الأحيان يمكن الحصول على موافقة بناءً على عقار للعائلة القريبة. هل يوجد عقار بملكية الوالدين أو الأقارب من الدرجة الأولى؟ (نعم / لا)',
         step_5_no_family_final: 'شكراً لصدقك. إجراءاتنا تعتمد على وجود عقار بملكيتك أو ملكية عائلتك. سنكون سعداء بمساعدتك في المستقبل إذا تغيرت الظروف. يوماً سعيداً!',
         step_6: 'باسم من مسجل العقار حالياً؟ (باسمك / باسم الزوج أو الزوجة / باسمكما معاً)',
-        step_7: 'أين مسجل العقار؟ (طابו / دائرة أراضي إسرائيل / غير مسجل / لست متأكداً)',
         step_8: 'هل العقار حاصل على رخصة بناء قانونية؟ (نعم / لا / لست متأكداً)',
         step_9: 'لكي نتمكن من تحضير الملف بأفضل شكل أمام הבנוك، هل واجهت أي تحديات في الحساب خلال السنوات الثلاث الأخيرة؟ (مثل شيكات راجعة أو حجوزات)؟ (نعم / לא)',
         step_10: 'تم تحويل بياناتك إلى خبرائنا للفحص الأولي. ما هو الوقت الأنسب لك ليتصل بك مندوبنا للاستشارة؟',
@@ -142,7 +139,6 @@ const templates = {
         step_5_no_family: 'Sometimes approval can be obtained based on a property owned by immediate family. Does a parent or first-degree relative own such a property? (Yes / No)',
         step_5_no_family_final: 'Thank you for your honesty. Our processes are based on property ownership by you or your family. We\'d be happy to help in the future if conditions change. Have a great day!',
         step_6: 'Who is the property currently registered under? (You / Your spouse / Both)',
-        step_7: 'Where is the property registered? (Taboo / Land Authority / Not registered / Not sure)',
         step_8: 'Does the property have an official building permit? (Yes / No / Not sure)',
         step_9: 'To best prepare your file for the banks, have there been any account challenges in the last 3 years (such as returned checks or liens)? (Yes / No)',
         step_10: 'Your details have been forwarded to our experts for review. What is the best time for a representative to call you for a brief consultation?',
@@ -269,17 +265,7 @@ export async function handleStateTransition(
             const input = userInput.toLowerCase();
             const owner = input.includes('שניכם') || input.includes('كليكما') || input.includes('both') ? 'both' :
                 input.includes('בן') || input.includes('בת') || input.includes('زوج') ? 'spouse' : 'self';
-            await updateLead(leadId, { property_owner: owner, current_step: 7 });
-            await sendMessage(phoneNumber, msgs.step_7);
-            break;
-        }
-
-        case 7: {
-            const input = userInput.toLowerCase();
-            const registry = input.includes('טאבו') || input.includes('تابו') ? 'tabo' :
-                input.includes('מינהל') || input.includes('חكومة') ? 'minhal' :
-                    input.includes('לא רשום') || input.includes('מסג') ? 'lo_rassum' : 'lo_batu';
-            await updateLead(leadId, { property_registry: registry, current_step: 8 });
+            await updateLead(leadId, { property_owner: owner, current_step: 8 });
             await sendMessage(phoneNumber, msgs.step_8);
             break;
         }
