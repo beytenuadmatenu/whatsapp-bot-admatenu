@@ -324,7 +324,7 @@ export async function handleStateTransition(
 הבוט של אדמתנו ביתנו
 `.trim();
 
-                const groupMessage = `התקבל ליד חדש  
+                const groupMessage = `*התקבל ליד חדש*  
 פרטי הלקוח:
 ${summary}`;
 
