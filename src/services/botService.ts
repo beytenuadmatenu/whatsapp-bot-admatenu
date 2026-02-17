@@ -1,5 +1,6 @@
 import { sendMessage } from './ultramsgService';
-import { supabase, updateLead, createCallAppointment } from './supabaseService';
+import { supabase, updateLead, createCallAppointment, getLeadByPhone } from './supabaseService';
+import { sendNewLeadEmail } from './emailService';
 import { Lead } from '../types';
 
 /**
@@ -302,6 +303,12 @@ export async function handleStateTransition(
 
             await createCallAppointment(leadId);
             await sendMessage(phoneNumber, msgs.completion);
+
+            // שליחת מייל לצוות
+            const fullLead = await getLeadByPhone(phoneNumber);
+            if (fullLead) {
+                await sendNewLeadEmail(fullLead);
+            }
             break;
         }
 
