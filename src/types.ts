@@ -1,21 +1,21 @@
 export interface Lead {
     id: string;
     phone_number: string;
-    full_name?: string;
-    city?: string;
-    loan_amount?: number;
-    loan_purpose?: string;
+    full_name?: string | null;
+    city?: string | null;
+    loan_amount?: number | null;
+    loan_purpose?: string | null;
     language: 'hebrew' | 'arabic' | 'english';
     current_step: number;
     status: 'new' | 'qualified' | 'rejected' | 'pending_confirmation';
-    rejection_reason?: string;
-    has_property?: boolean;
-    has_family_property?: boolean;
-    property_owner?: 'self' | 'spouse' | 'both';
-    property_registry?: 'tabo' | 'minhal' | 'lo_rassum' | 'lo_batu';
-    building_permit?: 'yes' | 'no' | 'lo_batu';
-    bank_issues?: boolean;
-    preferred_call_time?: string;
+    rejection_reason?: string | null;
+    has_property?: boolean | null;
+    has_family_property?: boolean | null;
+    property_owner?: 'self' | 'spouse' | 'both' | null;
+    property_registry?: 'tabo' | 'minhal' | 'lo_rassum' | 'lo_batu' | null;
+    building_permit?: 'yes' | 'no' | 'lo_batu' | null;
+    bank_issues?: boolean | null;
+    preferred_call_time?: string | null;
     last_message_at?: string;
     created_at?: string;
 }

@@ -29,6 +29,36 @@ export async function handleIncomingMessage(payload: WebhookPayload) {
             await sendMessage(phoneNumber, msgs.step_1); // Ask for name immediately after greeting
         }
     } else {
+        // Check for reset command
+        if (userInput.trim() === 'אפס את השיחה') {
+            await updateLead(lead.id, {
+                current_step: 1, // Reset to step 1 (name question) directly, or 0 to send greeting again?
+                // Better to just clear data and restart from greeting?
+                // User said: "reset the service to forget I spoke with it"
+                // Let's clear relevant fields
+                full_name: null,
+                city: null,
+                loan_amount: null,
+                loan_purpose: null,
+                status: 'new',
+                rejection_reason: null,
+                has_property: null,
+                has_family_property: null,
+                property_owner: null,
+                property_registry: null,
+                building_permit: null,
+                bank_issues: null,
+                preferred_call_time: null
+            } as any); // Type cast might be needed if types are strict about nulls
+
+            const msgs = templates[lead.language as 'hebrew' | 'arabic' | 'english'];
+            await sendMessage(phoneNumber, 'השיחה אופסה בהצלחה. נתחיל מחדש.');
+            await sendMessage(phoneNumber, msgs.greeting);
+            await updateLead(lead.id, { current_step: 1 }); // Move to name input
+            await sendMessage(phoneNumber, msgs.step_1);
+            return;
+        }
+
         // Existing lead
         await handleStateTransition(
             lead.id,
