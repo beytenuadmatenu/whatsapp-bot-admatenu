@@ -109,7 +109,7 @@ const templates = {
         step_7: 'היכן רשום הנכס? (טאבו / מינהל / לא רשום / לא בטוח)',
         step_8: 'האם קיים לנכס היתר בנייה מוסדר? (כן / לא / לא בטוח)',
         step_9: 'כדי שנוכל להכין את התיק בצורה הטובה ביותר מול הבנקים, האם היו אתגרים בחשבון ב-3 השנים האחרונות? (כגון חזרות צ\'קים, הגבלות או עיקולים)? (כן / לא)',
-        step_10: 'הפרטים שלך הועברו למומחים שלנו לבחינה ראשונית. מתי השעה הנוחה לך ביותר שבו נציג יחזור אליך לשיחת ייעוץ קצרה?',
+        step_10: 'הפרטים שלך הועברו למומחים שלנו לבחינה ראשונית. מתי השעה הנוחה לך ביותר שנציג יחזור אליך לשיחת ייעוץ ללא עלות?',
         completion: 'הבקשה נקלטה בהצלחה. מאחלים לך יום מצוין ותודה שבחרת ב"אדמתנו ביתנו"! 🌷',
     },
     arabic: {
@@ -146,7 +146,7 @@ const templates = {
         step_8: 'Does the property have an official building permit? (Yes / No / Not sure)',
         step_9: 'To best prepare your file for the banks, have there been any account challenges in the last 3 years (such as returned checks or liens)? (Yes / No)',
         step_10: 'Your details have been forwarded to our experts for review. What is the best time for a representative to call you for a brief consultation?',
-        completion: 'Your request has been successfully received. Wishing you a great day and thank you for choosing "Our Land Our Home"! 🌷',
+        completion: 'Your request has been successfully received. Wishing you a great day and thank you for choosing "Our Land Is Our Home"! 🌷',
     },
 };
 
