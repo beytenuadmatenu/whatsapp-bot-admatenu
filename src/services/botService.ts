@@ -10,58 +10,58 @@ export function detectLanguage(text: string): 'hebrew' | 'arabic' | 'english' {
 
 const templates = {
     hebrew: {
-        greeting: 'שלום רב, תודה שפנית ל\'אדמתנו ביתנו\'. אנחנו כאן כדי לספק את הפתרונות הטובים ביותר עבורך. לפני שנתקדם – מה שלומך היום?',
-        step_1: 'כדי שנוכל לדבר בצורה אישית, איך קוראים לך?',
-        step_2: 'תודה. באיזה יישוב אתה גר?',
-        step_3: 'איזה סכום אתה מעוניין לקבל בש"ח?',
-        step_3_under_min: 'לצערנו אנו מטפלים בבקשות החל מ-200,000 ש"ח. אם סכום זה רלוונטי עבורך, נשמח לעזור בשיחת ייעוץ.',
-        step_3_below_min_final: 'מצטערים, אך אנחנו לא מספקים את השירות המתאים עבורך. נשמח לעמוד לרשותך בהמשך!',
-        step_4: 'לאיזו מטרה מיועדת ההלוואה? (לדוגמה: שיפוץ, סגירת חובות, רכב חדש)',
-        step_5: 'האם בבעלותך נכס כלשהו? (כן / לא)',
-        step_5_no_family: 'האם קיים נכס בבעלות הורים או משפחה מדרגה ראשונה? (כן / לא)',
-        step_5_no_family_final: 'תודה, התהליך מתאים למקרים בהם קיים נכס בבעלות הלקוח או משפחתו. כמובן שנשמח לעמוד לרשותך בעתיד במידה והמצב ישתנה. בהצלחה!',
-        step_6: 'על שם מי רשום הנכס? (על שמך / על שם בן או בת זוג / על שם שניכם)',
-        step_7: 'היכן רשום הנכס? (טאבו / מינהל / לא רשום / לא בטוח)',
-        step_8: 'האם קיים לנכס היתר בנייה? (כן / לא / לא בטוח)',
-        step_9: 'האם היו לך בעיות מול הבנקים ב-3 השנים האחרונות? כגון חזרות צ\'קים, הגבלות חשבון או עיקולים? (כן / לא)',
-        step_10: 'הפרטים שלך הועברו לנציג מטעמנו. מתי נוח לך שהוא יחזור אליך?',
-        completion: 'מעולה, מאחלים לך יום מקסים ותודה שבחרת בנו! 🌷',
+        greeting: 'שלום רב, תודה שפנית ל"אדמתנו ביתנו" – מומחים לפתרונות מימון ומשכנתאות. 🏠 אנחנו כאן כדי לעזור לך למצוא את המסלול המשתלם ביותר עבורך. לפני שנתחיל, מה שלומך היום?',
+        step_1: 'כדי שנוכל להעניק לך שירות אישי ומקצועי, איך קוראים לך?',
+        step_2: 'נעים מאוד! מאיזה יישוב אתה בארץ?',
+        step_3: 'מהו סכום המימון שאתה זקוק לו? (זה יעזור לנו להתאים עבורך את מסלולי ההלוואה הרלוונטיים ביותר)',
+        step_3_under_min: 'חשוב לציין שאנו מטפלים בבקשות החל מ-200,000 ש"ח. האם סכום זה או גבוה ממנו עשוי להיות רלוונטי עבורך?',
+        step_3_below_min_final: 'מכיוון שאנו מתמחים בהלוואות בסכומים גבוהים יותר, כרגע אין לנו מסלול שמתאים לפנייתך. נשמח לעמוד לרשותך בעתיד במידה והצרכים ישתנו. בהצלחה!',
+        step_4: 'למען איזו מטרה מיועדת ההלוואה? (למשל: שיפוץ הבית, סגירת חובות, רכישת נכס או כל מטרה אחרת)',
+        step_5: 'כדי לבחון את אפשרויות המימון, האם יש בבעלותך נכס כלשהו (דירה, בית או מגרש)? (כן / לא)',
+        step_5_no_family: 'לפעמים ניתן לקבל אישור על בסיס נכס של המשפחה הקרובה. האם קיים נכס כזה בבעלות הורים או משפחה מדרגה ראשונה? (כן / לא)',
+        step_5_no_family_final: 'תודה על הכנות. התהליכים שלנו מבוססים על קיומו של נכס בבעלותך או בבעלות משפחתך. נשמח לעזור בעתיד אם התנאים ישתנו. יום נעים!',
+        step_6: 'על שם מי רשום הנכס כיום? (על שמך / על שם בן או בת זוג / על שם שניכם)',
+        step_7: 'היכן רשום הנכס? (טאבו / מינהל מקרקעי ישראל / לא רשום / לא בטוח)',
+        step_8: 'האם קיים לנכס היתר בנייה מוסדר? (כן / לא / לא בטוח)',
+        step_9: 'כדי שנוכל להכין את התיק בצורה הטובה ביותר מול הבנקים, האם היו אתגרים בחשבון ב-3 השנים האחרונות? (כגון חזרות צ\'קים, הגבלות או עיקולים)? (כן / לא)',
+        step_10: 'הפרטים שלך הועברו למומחים שלנו לבחינה ראשונית. מתי השעה הנוחה לך ביותר שבו נציג יחזור אליך לשיחת ייעוץ קצרה?',
+        completion: 'הבקשה נקלטה בהצלחה. מאחלים לך יום מצוין ותודה שבחרת ב"אדמתנו ביתנו"! 🌷',
     },
     arabic: {
-        greeting: 'السلام عليكم ورحمة الله وبركاته. شكرا لتواصلك مع "أرضنا بيتنا". نحن هنا لتقديم أفضل الحلول لك. قبل أن نمضي قدما - كيف حالك اليوم؟',
-        step_1: 'لكي نتمكن من التحدث بشكل شخصي، ما اسمك من فضلك؟',
-        step_2: 'شكرا. في أي مدينة أنت تسكن؟',
-        step_3: 'كم المبلغ الذي تريد الحصول عليه بالشيكل؟',
-        step_3_under_min: 'للأسف، نتعامل فقط مع الطلبات من 200,000 شيكل فما فوق. إذا كان هذا المبلغ مناسبا لك، يسعدنا مساعدتك في استشارة هاتفية.',
-        step_3_below_min_final: 'نعتذر، لكننا لا نقدم الخدمة المناسبة لك. يسعدنا مساعدتك في المستقبل!',
-        step_4: 'لأي غرض تحتاج القرض؟ (مثال: تجديد، سداد ديون، سيارة جديدة)',
-        step_5: 'هل تمتلك أي ممتلكات؟ (نعم / لا)',
-        step_5_no_family: 'هل هناك ممتلكات بمالك والديك أو أقاربك من الدرجة الأولى؟ (نعم / لا)',
-        step_5_no_family_final: 'شكرا، العملية مناسبة للحالات التي يكون فيها لديك ملكية عقارية. بالطبع يسعدنا مساعدتك في المستقبل إذا تغير الوضع. حظا موفقا!',
-        step_6: 'على من مسجل الملك العقاري؟ (باسمك / باسم زوجك أو زوجتك / باسميكما)',
-        step_7: 'أين مسجل الملك؟ (تابو / مصلحة الحكومة / غير مسجل / لست متأكدا)',
-        step_8: 'هل لدى الملك رخصة بناء؟ (نعم / لا / لست متأكدا)',
-        step_9: 'هل واجهت مشاكل مع البنوك في آخر 3 سنوات؟ مثل فحص الشيكات، تجميد الحساب أو رسوم قانونية؟ (نعم / لا)',
-        step_10: 'تم تحويل بياناتك إلى فريقنا المتخصص. متى يناسبك أن يتصل بك؟',
-        completion: 'ممتاز، نتمنى لك يوما رائعا وشكرا لاختيارك لنا! 🌷',
+        greeting: 'أهلاً بك في "أرضنا بيتنا" – متخصصون في الحلول التمويلية والقروض السكنية. 🏠 نحن هنا لمساعدتك في الحصول على أفضل الشروط. قبل أن نبدأ، كيف حالك اليوم؟',
+        step_1: 'من أجل تقديم خدمة شخصية ومهنية، ما هو اسمك الكريم؟',
+        step_2: 'تشرفنا! في أي مدينة أو قرية تسكن؟',
+        step_3: 'ما هو مبلغ التمويل الذي تحتاجه؟ (هذا سيساعدنا في ملائمة أفضل المسارات لك)',
+        step_3_under_min: 'يرجى ملاحظة أننا نعالج الطلبات ابتداءً من 200,000 شيكل وما فوق. هل هذا المبلغ أو أكثر قد يكون مناسباً لك؟',
+        step_3_below_min_final: 'بما أننا متخصصون في القروض بمبالغ أعلى، للأسف لا يوجد لدينا مسار مناسب لطلبك حالياً. سنكون سعداء بخدمتك في المستقبل إذا تغيرت الاحتياجات. بالتوفيق!',
+        step_4: 'ما هو الغرض من القرض؟ (مثلاً: ترميم البيت، تسديد ديون، شراء عقار أو أي هدف آخر)',
+        step_5: 'من أجل فحص خيارات التمويل، هل تملك أي عقار (شقة، بيت أو أرض)؟ (نعم / لا)',
+        step_5_no_family: 'في بعض الأحيان يمكن الحصول على موافقة بناءً على عقار للعائلة القريبة. هل يوجد عقار بملكية الوالدين أو الأقارب من الدرجة الأولى؟ (نعم / لا)',
+        step_5_no_family_final: 'شكراً لصدقك. إجراءاتنا تعتمد على وجود عقار بملكيتك أو ملكية عائلتك. سنكون سعداء بمساعدتك في المستقبل إذا تغيرت الظروف. يوماً سعيداً!',
+        step_6: 'باسم من مسجل العقار حالياً؟ (باسمك / باسم الزوج أو الزوجة / باسمكما معاً)',
+        step_7: 'أين مسجل العقار؟ (طابو / دائرة أراضي إسرائيل / غير مسجل / لست متأكداً)',
+        step_8: 'هل العقار حاصل على رخصة بناء قانونية؟ (نعم / لا / لست متأكداً)',
+        step_9: 'لكي نتمكن من تحضير الملف بأفضل شكل أمام البنوك، هل واجهت أي تحديات في الحساب خلال السنوات الثلاث الأخيرة؟ (مثل شيكات راجعة أو حجوزات)؟ (نعم / لا)',
+        step_10: 'تم تحويل بياناتك إلى خبرائنا للفحص الأولي. ما هو الوقت الأنسب لك ليتصل بك مندوبنا للاستشارة؟',
+        completion: 'تم استلام طلبك بنجاح. نتمنى لك يوماً رائعاً وشكراً لاختيارك "أرضنا بيتنا"! 🌷',
     },
     english: {
-        greeting: 'Hello! Thank you for contacting "Our Land Our Home". We are here to provide the best solutions for you. Before we proceed - how are you today?',
-        step_1: 'To communicate with you personally, what is your name please?',
-        step_2: 'Thank you. What city do you live in?',
-        step_3: 'What amount do you want to receive in NIS?',
-        step_3_under_min: 'Unfortunately, we only handle requests from 200,000 NIS and above. If this amount is relevant to you, we would be happy to help with a free consultation call.',
-        step_3_below_min_final: 'Sorry, we cannot provide the service suitable for you. We are happy to assist you in the future!',
-        step_4: 'What is the loan for? (Example: renovation, debt consolidation, new car)',
-        step_5: 'Do you own any property? (Yes / No)',
-        step_5_no_family: 'Do your parents or first-degree family members own any property? (Yes / No)',
-        step_5_no_family_final: 'Thank you, this process is suitable for cases where there is property ownership. Of course, we would be happy to help you in the future if the situation changes. Good luck!',
-        step_6: 'Who is the property registered under? (You / Your spouse / Both)',
-        step_7: 'Where is the property registered? (Taboo / Government office / Not registered / Not sure)',
-        step_8: 'Does the property have a building permit? (Yes / No / Not sure)',
-        step_9: 'Have you had problems with banks in the last 3 years? Such as check returns, account restrictions or seizures? (Yes / No)',
-        step_10: 'Your details have been forwarded to our specialist. When is it convenient for you to be called?',
-        completion: 'Excellent! We wish you a wonderful day and thank you for choosing us! 🌷',
+        greeting: 'Hello, thank you for contacting "Our Land Our Home" – experts in financing and mortgage solutions. 🏠 We are here to help you find the most cost-effective path. Before we start, how are you today?',
+        step_1: 'To provide you with personal and professional service, what is your name?',
+        step_2: 'Pleasure to meet you! Which city do you live in?',
+        step_3: 'What is the loan amount you need? (This helps us match the most relevant loan tracks for you)',
+        step_3_under_min: 'Please note that we handle requests starting from 200,000 NIS. Could this amount or higher be relevant for you?',
+        step_3_below_min_final: 'Since we specialize in higher loan amounts, we currently don\'t have a track suitable for your request. We\'d be happy to assist in the future if your needs change. Good luck!',
+        step_4: 'What is the purpose of the loan? (e.g., home renovation, debt consolidation, property purchase, etc.)',
+        step_5: 'To review financing options, do you own any property (apartment, house, or land)? (Yes / No)',
+        step_5_no_family: 'Sometimes approval can be obtained based on a property owned by immediate family. Does a parent or first-degree relative own such a property? (Yes / No)',
+        step_5_no_family_final: 'Thank you for your honesty. Our processes are based on property ownership by you or your family. We\'d be happy to help in the future if conditions change. Have a great day!',
+        step_6: 'Who is the property currently registered under? (You / Your spouse / Both)',
+        step_7: 'Where is the property registered? (Taboo / Land Authority / Not registered / Not sure)',
+        step_8: 'Does the property have an official building permit? (Yes / No / Not sure)',
+        step_9: 'To best prepare your file for the banks, have there been any account challenges in the last 3 years (such as returned checks or liens)? (Yes / No)',
+        step_10: 'Your details have been forwarded to our experts for review. What is the best time for a representative to call you for a brief consultation?',
+        completion: 'Your request has been successfully received. Wishing you a great day and thank you for choosing "Our Land Our Home"! 🌷',
     },
 };
 
@@ -97,7 +97,7 @@ export async function handleStateTransition(
             if (isNaN(loanAmount) || loanAmount < minLoanAmount) {
                 await updateLead(leadId, {
                     loan_amount: loanAmount,
-                    current_step: 3.5,
+                    current_step: 35,
                     status: 'pending_confirmation'
                 });
                 await sendMessage(phoneNumber, msgs.step_3_under_min);
@@ -108,7 +108,7 @@ export async function handleStateTransition(
             break;
         }
 
-        case 3.5: {
+        case 35: {
             const response = userInput.toLowerCase();
             if (response.includes('כן') || response.includes('نعم') || response.includes('yes')) {
                 await updateLead(leadId, { current_step: 4 });
@@ -138,13 +138,13 @@ export async function handleStateTransition(
                 await updateLead(leadId, { has_property: true, current_step: 6 });
                 await sendMessage(phoneNumber, msgs.step_6);
             } else {
-                await updateLead(leadId, { has_property: false, current_step: 5.5 });
+                await updateLead(leadId, { has_property: false, current_step: 55 });
                 await sendMessage(phoneNumber, msgs.step_5_no_family);
             }
             break;
         }
 
-        case 5.5: {
+        case 55: {
             const response = userInput.toLowerCase();
             const hasFamily =
                 response.includes('כן') || response.includes('نعم') || response.includes('yes');
