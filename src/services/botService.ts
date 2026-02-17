@@ -97,7 +97,7 @@ const templates = {
     hebrew: {
         greeting: 'שלום רב, תודה שפנית ל"אדמתנו ביתנו" – מומחים לפתרונות מימון ומשכנתאות. 🏠',
         step_1: 'כדי שנוכל להעניק לך שירות אישי ומקצועי, נשמח לדעת איך קוראים לך?',
-        step_2: 'נעים מאוד! מאיזה יישוב אתה בארץ?',
+        step_2: 'מאיזה יישוב אתה בארץ?',
         step_3: 'מהו סכום המימון הנדרש? (זה יעזור לנו להתאים עבורך את המסלולים הרלוונטיים ביותר)',
         step_3_under_min: 'חשוב לציין שאנו מטפלים בבקשות החל מ-200,000 ש"ח. האם זה עדיין רלוונטי עבורך?',
         step_3_below_min_final: 'סליחה, כרגע אין לנו מסלול שמתאים לפנייתך. נשמח לעמוד לרשותך בעתיד במידה והצרכים ישתנו. בהצלחה!',
@@ -115,25 +115,25 @@ const templates = {
     arabic: {
         greeting: 'أهلاً بك في "أرضنا بيتنا" – متخصصون في الحلول التمويلية والقروض السكنية. 🏠 نحن هنا لمساعدتك في الحصول على أفضل الشروط. قبل أن نبدأ، كيف حالك اليوم؟',
         step_1: 'من أجل تقديم خدمة شخصية ومهنية، ما هو اسمك الكريم؟',
-        step_2: 'تشرفنا! في أي مدينة أو قرية تسكن؟',
+        step_2: 'في أي مدينة أو قرية تسكن؟',
         step_3: 'ما هو مبلغ التمويل الذي تحتاجه؟ (هذا سيساعدنا في ملائمة أفضل المسارات لك)',
         step_3_under_min: 'يرجى ملاحظة أننا نعالج الطلبات ابتداءً من 200,000 شيكل وما فوق. هل هذا المبلغ أو أكثر قد يكون مناسباً لك؟',
-        step_3_below_min_final: 'بما أننا متخصصون في القروض بمبالغ أعلى، للأسف لا يوجد لدينا مسار مناسب لطلبك حالياً. سنكون سعداء بخدمتك في المستقبل إذا تغيرت الاحتياجات. بالتوفيق!',
+        step_3_below_min_final: 'بما أننا متخصصون في القروض بمبالג أعلى، للأسف لا يوجد لدينا مسار مناسب לطلبك حالياً. سنكون سعداء بخدمتك في المستقبل إذا تغيرت الاحتياجات. بالتوفيق!',
         step_4: 'ما هو الغرض من القرض؟ (مثلاً: ترميم البيت، تسديد ديون، شراء عقار أو أي هدف آخر)',
         step_5: 'من أجل فحص خيارات التمويل، هل تملك أي عقار (شقة، بيت أو أرض)؟ (نعم / لا)',
         step_5_no_family: 'في بعض الأحيان يمكن الحصول على موافقة بناءً على عقار للعائلة القريبة. هل يوجد عقار بملكية الوالدين أو الأقارب من الدرجة الأولى؟ (نعم / لا)',
         step_5_no_family_final: 'شكراً لصدقك. إجراءاتنا تعتمد على وجود عقار بملكيتك أو ملكية عائلتك. سنكون سعداء بمساعدتك في المستقبل إذا تغيرت الظروف. يوماً سعيداً!',
         step_6: 'باسم من مسجل العقار حالياً؟ (باسمك / باسم الزوج أو الزوجة / باسمكما معاً)',
-        step_7: 'أين مسجل العقار؟ (طابو / دائرة أراضي إسرائيل / غير مسجل / لست متأكداً)',
+        step_7: 'أين مسجل العقار؟ (طابו / دائرة أراضي إسرائيل / غير مسجل / لست متأكداً)',
         step_8: 'هل العقار حاصل على رخصة بناء قانونية؟ (نعم / لا / لست متأكداً)',
-        step_9: 'لكي نتمكن من تحضير الملف بأفضل شكل أمام البנוك، هل واجهت أي تحديات في الحساب خلال السنوات الثلاث الأخيرة؟ (مثل شيكات راجعة أو حجوزات)؟ (نعم / לא)',
+        step_9: 'لكي نتمكن من تحضير الملف بأفضل شكل أمام הבנוك، هل واجهت أي تحديات في الحساب خلال السنوات الثلاث الأخيرة؟ (مثل شيكات راجعة أو حجوزات)؟ (نعم / לא)',
         step_10: 'تم تحويل بياناتك إلى خبرائنا للفحص الأولي. ما هو الوقت الأنسب لك ليتصل بك مندوبنا للاستشارة؟',
         completion: 'تم استلام طلبك بنجاح. نتمنى لك يوماً رائعاً وشكراً لاختيارك "أرضنا بيتنا"! 🌷',
     },
     english: {
         greeting: 'Hello, thank you for contacting "Our Land Our Home" – experts in financing and mortgage solutions. 🏠 We are here to help you find the most cost-effective path. Before we start, how are you today?',
         step_1: 'To provide you with personal and professional service, what is your name?',
-        step_2: 'Pleasure to meet you! Which city do you live in?',
+        step_2: 'Which city do you live in?',
         step_3: 'What is the loan amount you need? (This helps us match the most relevant loan tracks for you)',
         step_3_under_min: 'Please note that we handle requests starting from 200,000 NIS. Could this amount or higher be relevant for you?',
         step_3_below_min_final: 'Since we specialize in higher loan amounts, we currently don\'t have a track suitable for your request. We\'d be happy to assist in the future if your needs change. Good luck!',
@@ -166,10 +166,19 @@ export async function handleStateTransition(
             await updateLead(leadId, { current_step: 1 });
             break;
 
-        case 1:
-            await updateLead(leadId, { full_name: userInput, current_step: 2 });
-            await sendMessage(phoneNumber, msgs.step_2);
+        case 1: {
+            const fullName = userInput.trim();
+            await updateLead(leadId, { full_name: fullName, current_step: 2 });
+
+            // יצירת הודעת המשך אישית עם השם המלא
+            let greeting = '';
+            if (language === 'hebrew') greeting = `נעים מאוד ${fullName}! ${msgs.step_2}`;
+            else if (language === 'arabic') greeting = `تشرفنا يا ${fullName}! ${msgs.step_2}`;
+            else greeting = `Pleasure to meet you, ${fullName}! ${msgs.step_2}`;
+
+            await sendMessage(phoneNumber, greeting);
             break;
+        }
 
         case 2:
             await updateLead(leadId, { city: userInput, current_step: 3 });
@@ -177,7 +186,6 @@ export async function handleStateTransition(
             break;
 
         case 3: {
-            // שימוש במנוע הפיענוח החכם
             const loanAmount = parseAmount(userInput);
 
             if (isNaN(loanAmount) || loanAmount < minLoanAmount) {
@@ -190,7 +198,6 @@ export async function handleStateTransition(
             } else {
                 await updateLead(leadId, { loan_amount: loanAmount, current_step: 4 });
 
-                // הודעת אישור שמראה שהבנו את הסכום (מגביר אמון לקוח)
                 let confirmationText = msgs.step_4;
                 if (language === 'hebrew') confirmationText = `קיבלתי, ${loanAmount.toLocaleString()} ש"ח. ${msgs.step_4}`;
                 if (language === 'arabic') confirmationText = `تم استلام ${loanAmount.toLocaleString()} شيكل. ${msgs.step_4}`;
@@ -269,8 +276,8 @@ export async function handleStateTransition(
 
         case 7: {
             const input = userInput.toLowerCase();
-            const registry = input.includes('טאבו') || input.includes('تابو') ? 'tabo' :
-                input.includes('מינהל') || input.includes('حكومة') ? 'minhal' :
+            const registry = input.includes('טאבו') || input.includes('تابו') ? 'tabo' :
+                input.includes('מינהל') || input.includes('חكومة') ? 'minhal' :
                     input.includes('לא רשום') || input.includes('מסג') ? 'lo_rassum' : 'lo_batu';
             await updateLead(leadId, { property_registry: registry, current_step: 8 });
             await sendMessage(phoneNumber, msgs.step_8);
