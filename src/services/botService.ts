@@ -319,7 +319,9 @@ export async function handleStateTransition(
 מטרה: ${fullLead.loan_purpose}
 נכס: ${fullLead.has_property ? 'יש' : 'אין'}
 בעיות אשראי: ${fullLead.bank_issues ? 'כן' : 'לא'}
-
+מועד רצוי לחזרה: ${fullLead.preferred_call_time || 'לא צוין'}
+בברכה,
+הבוט של אדמתנו ביתנו
 `.trim();
 
                 const groupMessage = `התקבל ליד חדש  
