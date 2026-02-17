@@ -309,6 +309,7 @@ export async function handleStateTransition(
             if (fullLead) {
                 await sendNewLeadEmail(fullLead);
 
+                /*
                 // שליחת הודעה לקבוצת "לידים חמים 🔥"
                 const groupID = '120363406522778698@g.us';
                 const summary = `
@@ -331,6 +332,33 @@ export async function handleStateTransition(
 ${summary}`;
 
                 await sendMessage(groupID, groupMessage);
+            }
+            break;
+        }
+
+        */
+
+
+
+                const groupID = '120363406522778698@g.us';
+
+                const cleanPhone = fullLead.phone_number.replace(/\D/g, '');
+                const formattedPhone = cleanPhone.startsWith('0') ? `972${cleanPhone.substring(1)}` : cleanPhone;
+                const waLink = `wa.me/${formattedPhone}`;
+
+                const details = `לקוח ${fullLead.full_name}, גר ב${fullLead.city || 'לא צוין'}. מבקש ${Number(fullLead.loan_amount).toLocaleString()} ש"ח למטרת ${fullLead.loan_purpose}. נכס: ${fullLead.has_property ? 'כן' : 'אין'}. בעיות בנקים: ${fullLead.bank_issues ? 'כן' : 'ממש לא'}.`;
+
+                const groupMessage = `🔥 *ליד חם חדש (אש)!* 🔥
+
+*שם*: ${fullLead.full_name}
+*טלפון*: ${waLink}
+*פרטים*: ${details}
+*מועד חזרה רצוי*: ${fullLead.preferred_call_time || 'בהקדם'}
+
+*סוכן, נא חזור אל הלקוח!* 🚀`;
+
+                await sendMessage(groupID, groupMessage);
+                // --- סוף העיצוב החדש ---
             }
             break;
         }
