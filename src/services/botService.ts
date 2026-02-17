@@ -313,14 +313,16 @@ export async function handleStateTransition(
                 const groupID = '120363406522778698@g.us';
                 const summary = `
 שם: ${fullLead.full_name}
+מספר טלפון: ${fullLead.phone_number}
 עיר: ${fullLead.city}
 סכום: ${fullLead.loan_amount}
 מטרה: ${fullLead.loan_purpose}
 נכס: ${fullLead.has_property ? 'יש' : 'אין'}
 בעיות אשראי: ${fullLead.bank_issues ? 'כן' : 'לא'}
+
 `.trim();
 
-                const groupMessage = `התקבל ליד חדש בשם ${fullLead.full_name} וסיכום קצר על השיחה שלו אפשר לקבל את
+                const groupMessage = `התקבל ליד חדש  
 פרטי הלקוח:
 ${summary}`;
 
